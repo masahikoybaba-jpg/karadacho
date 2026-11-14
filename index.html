@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#eef0e4">
+<meta name="theme-color" content="#fff8e7">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="からだ帳">
 <meta name="robots" content="noindex, nofollow">
@@ -13,24 +13,33 @@
 <title>からだ帳</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;600;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800&family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#eef0e4; --ink:#2c3a2e; --deep:#2f4a36; --sub:#5c6f55; --mute:#8a9684;
-  --sage:#c9d6b8; --lilac:#e4dcef; --violet:#9b82c9; --pale:#d9c9f0; --leaf:#7c9a6a;
-  --glass:rgba(255,255,255,.72); --line:rgba(47,74,54,.16);
-  --num:"Urbanist","Zen Kaku Gothic New",sans-serif;
-  --body:"Zen Kaku Gothic New","Hiragino Kaku Gothic ProN","Yu Gothic UI","Meiryo",sans-serif;
+  --bg:#fff8e7; --ink:#5b4034; --deep:#6b4a3a; --sub:#8a6a58; --mute:#a89080;
+  --sage:#bfe3f5; --lilac:#ffd9e2; --violet:#f2708f; --pale:#ffe39a; --leaf:#9ccf8a;
+  --glass:rgba(255,255,255,.88); --line:rgba(107,74,58,.16);
+  --num:"Nunito","Zen Maru Gothic",sans-serif;
+  --body:"Zen Maru Gothic","Hiragino Kaku Gothic ProN","Yu Gothic UI","Meiryo",sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html{background:var(--bg);overflow-x:hidden}
 body{font-family:var(--body);font-weight:500;color:var(--ink);font-size:16px;line-height:1.5;min-height:100dvh;max-width:520px;margin:0 auto;
   padding:0 20px calc(96px + env(safe-area-inset-bottom));position:relative}
-body::before,body::after{content:"";position:absolute;z-index:0;pointer-events:none}
-body::before{right:-70px;top:-60px;width:260px;height:260px;border-radius:46% 54% 60% 40%/50% 42% 58% 50%;background:var(--sage)}
-body::after{left:-80px;top:340px;width:200px;height:200px;border-radius:60% 40% 45% 55%/45% 55% 45% 55%;background:var(--lilac)}
 @media (max-width:560px){body{overflow-x:hidden}}
 header,main{position:relative;z-index:1}
+#bg{position:fixed;inset:0;z-index:0;background-repeat:repeat}
+#bg.bg-today{background-color:#fff1c2;background-image:radial-gradient(circle,#fff 0 7px,transparent 8px),radial-gradient(circle,#ffe08a 0 4px,transparent 5px);background-size:72px 72px;background-position:0 0,36px 36px}
+#bg.bg-graph{background-color:#cdeaf9;background-image:radial-gradient(circle,rgba(255,255,255,.9) 0 16px,transparent 17px),radial-gradient(circle,rgba(255,255,255,.9) 0 11px,transparent 12px);background-size:150px 120px;background-position:0 0,22px 6px}
+#bg.bg-hist{background-color:#dff1cf;background-image:radial-gradient(circle,#b9dda1 0 3px,transparent 4px),radial-gradient(circle,#fff 0 3px,transparent 4px);background-size:56px 56px;background-position:0 0,28px 28px}
+#bg.bg-set{background-color:#ffe4eb;background-image:radial-gradient(circle,#fff 0 6px,transparent 7px),radial-gradient(circle,#ffc2d1 0 4px,transparent 5px);background-size:72px 72px;background-position:0 0,36px 36px}
+#bg.has{background-size:cover;background-position:center;background-repeat:no-repeat}
+.bgrow{display:flex;align-items:center;gap:12px;padding:8px 0;border-top:1px solid var(--line)}
+.bgrow .th{flex:none;width:44px;height:60px;border-radius:12px;background:#fff center/cover no-repeat;border:2px dashed var(--mute)}
+.bgrow .th.on{border:2px solid var(--deep)}
+.bgrow span{flex:1;font-weight:700}
+.bgrow button{height:38px;padding:0 14px;border-radius:99px;background:var(--sage);font-size:13px;font-weight:700;color:var(--deep)}
+.bgrow button.x{background:transparent;color:var(--sub);padding:0 6px}
 button,input{font:inherit;color:inherit}
 button{cursor:pointer;border:none;background:none}
 li{list-style:none}
@@ -48,23 +57,23 @@ h2 em{font-style:normal;font-size:11px;font-weight:500;color:var(--sub);letter-s
 .pt{padding-top:calc(22px + env(safe-area-inset-top))}
 
 /* date */
-.datebar{display:flex;align-items:center;justify-content:space-between}
+.datebar{display:flex;align-items:center;justify-content:space-between;background:var(--glass);border-radius:99px;padding:6px 6px 6px 18px}
 .datebar .d{font-family:var(--num);font-weight:600;font-size:15px;letter-spacing:.12em;color:var(--sub)}
 .datebar .d i{font-style:normal;font-family:var(--body);font-weight:700;font-size:11px;letter-spacing:.06em;background:var(--deep);color:var(--bg);border-radius:99px;padding:2px 10px;margin-left:8px}
 .datebar .ar{display:flex;gap:8px}
-.datebar button{width:42px;height:42px;border-radius:50%;background:var(--glass);font-size:18px;color:var(--deep)}
+.datebar button{width:42px;height:42px;border-radius:50%;background:var(--sage);font-size:18px;color:var(--deep)}
 .datebar button:disabled{opacity:.35}
 
 /* weight hero */
 .hero{margin-top:18px}
 .numin{display:flex;align-items:baseline}
 .numin input{border:none;background:transparent;outline:none;font-family:var(--num);font-weight:700;color:var(--deep);letter-spacing:-.04em;line-height:1;font-size:98px;padding:0;border-radius:12px;min-width:0}
-.numin input::placeholder{color:rgba(47,74,54,.22)}
+.numin input::placeholder{color:rgba(107,74,58,.22)}
 .numin input:focus{background:rgba(255,255,255,.6)}
 .numin .u{font-family:var(--num);font-weight:600;font-size:22px;color:var(--sub);margin-left:6px}
-.delta{font-size:12px;color:var(--sub);margin-top:12px;min-height:22px;display:flex;flex-wrap:wrap;gap:2px 16px}
+.delta{font-size:12px;color:var(--sub);margin-top:8px;min-height:22px;display:flex;flex-wrap:wrap;gap:2px 16px}
 .delta b{font-family:var(--num);font-weight:700;font-size:16px;color:var(--deep)}
-#spark{margin:6px -20px 0;min-height:10px}
+#spark{margin:6px -18px 0;min-height:6px}
 svg{display:block;width:100%;height:auto}
 
 /* morning / night tiles */
@@ -106,7 +115,7 @@ svg{display:block;width:100%;height:auto}
 
 /* meals */
 .slots{display:flex;gap:6px;margin-bottom:10px}
-.slots button{flex:1;height:40px;border-radius:99px;font-size:13px;font-weight:700;color:var(--sub);background:rgba(47,74,54,.07)}
+.slots button{flex:1;height:40px;border-radius:99px;font-size:13px;font-weight:700;color:var(--sub);background:rgba(107,74,58,.07)}
 .slots button.on{background:var(--deep);color:var(--bg)}
 .add{display:grid;grid-template-columns:1fr 84px 46px;gap:6px}
 .add input{height:46px;border:1.5px solid transparent;border-radius:99px;padding:0 16px;background:#fff;min-width:0;outline:none}
@@ -140,11 +149,11 @@ svg text{font-family:var(--num);font-size:10px;font-weight:600;fill:var(--mute)}
 .legend i{display:inline-block;width:16px;height:0;border-top:2.5px solid;vertical-align:middle;margin-right:5px}
 .c-li{background:var(--lilac)}
 .c-dp{background:var(--deep);color:var(--bg)}
-.c-dp h2 em{color:rgba(238,240,228,.7)}
-.c-dp svg text{fill:rgba(238,240,228,.65)}
+.c-dp h2 em{color:rgba(255,248,231,.7)}
+.c-dp svg text{fill:rgba(255,248,231,.65)}
 
 /* history */
-.hist .hh{display:grid;grid-template-columns:58px 1fr 1fr 64px;gap:6px;padding:0 16px 0 10px;text-align:right;font-size:11px;font-weight:700;letter-spacing:.14em;color:var(--sub)}
+.hist .hh{display:grid;grid-template-columns:58px 1fr 1fr 64px;gap:6px;padding:6px 16px 6px 10px;background:var(--glass);border-radius:99px;text-align:right;font-size:11px;font-weight:700;letter-spacing:.14em;color:var(--sub)}
 .hist .c{display:block;line-height:1.25}
 .hist .c em{display:block;font-style:normal;font-family:var(--num);font-weight:600;font-size:12px;color:var(--sub)}
 .hist button{display:grid;grid-template-columns:58px 1fr 1fr 64px;align-items:center;width:100%;text-align:right;padding:10px 16px 10px 10px;background:var(--glass);border-radius:20px;margin-top:8px;gap:6px}
@@ -152,7 +161,7 @@ svg text{font-family:var(--num);font-size:10px;font-weight:600;fill:var(--mute)}
 .hist .dt small{font-family:var(--body);font-size:10px;font-weight:700;color:var(--sub)}
 .hist b{font-family:var(--num);font-weight:700;font-size:18px;color:var(--deep)}
 .hist b small{font-family:var(--body);font-size:10px;font-weight:500;color:var(--sub);margin-left:2px}
-.hist .no{color:#c3c9b8}
+.hist .no{color:#d9cbbf}
 
 /* settings */
 .field{margin-bottom:12px}
@@ -164,8 +173,8 @@ svg text{font-family:var(--num);font-size:10px;font-weight:600;fill:var(--mute)}
 .note{font-size:12px;color:var(--sub);line-height:1.7;padding:6px 6px 0}
 
 nav{position:fixed;left:0;right:0;bottom:calc(12px + env(safe-area-inset-bottom));z-index:5;display:flex;justify-content:center;pointer-events:none;padding:0 20px}
-nav div{pointer-events:auto;width:100%;max-width:480px;display:grid;grid-template-columns:repeat(4,1fr);background:#fff;border-radius:99px;padding:5px;box-shadow:0 10px 30px rgba(47,74,54,.18)}
-nav button{height:42px;border-radius:99px;font-size:13px;font-weight:700;color:var(--mute);transition:background .2s,color .2s}
+nav div{pointer-events:auto;width:100%;max-width:480px;display:grid;grid-template-columns:repeat(4,1fr);background:#fff;border-radius:99px;padding:5px;box-shadow:0 10px 30px rgba(107,74,58,.18)}
+nav button{height:42px;border-radius:99px;font-size:13px;font-weight:700;color:var(--sub);transition:background .2s,color .2s}
 nav button.on{background:var(--deep);color:var(--bg)}
 
 #toast{position:fixed;left:50%;bottom:calc(82px + env(safe-area-inset-bottom));transform:translate(-50%,20px);background:var(--deep);color:var(--bg);padding:9px 18px;border-radius:99px;font-size:13px;font-weight:700;opacity:0;pointer-events:none;transition:.25s;z-index:9;white-space:nowrap}
@@ -173,6 +182,7 @@ nav button.on{background:var(--deep);color:var(--bg)}
 </style>
 </head>
 <body>
+<div id="bg" class="bg-today"></div>
 <main>
   <section class="view on pt" id="v-today"></section>
   <section class="view pt" id="v-graph"></section>
@@ -184,7 +194,7 @@ nav button.on{background:var(--deep);color:var(--bg)}
   <button data-tab="today" class="on">記録</button>
   <button data-tab="graph">グラフ</button>
   <button data-tab="hist">履歴</button>
-  <button data-tab="set">目標</button>
+  <button data-tab="set">設定</button>
 </div></nav>
 <div id="toast"></div>
 
@@ -267,7 +277,7 @@ if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>{if(typeof
 function ring(p){
   const c=2*Math.PI*25;
   return '<svg class="ring" viewBox="0 0 62 62" role="img" aria-label="達成率 '+Math.round(p*100)+'%"><circle cx="31" cy="31" r="25" fill="none" stroke="rgba(255,255,255,.2)" stroke-width="5"/>'+
-    '<circle cx="31" cy="31" r="25" fill="none" stroke="#d9c9f0" stroke-width="5" stroke-linecap="round" stroke-dasharray="'+(c*p).toFixed(1)+' '+c.toFixed(1)+'" transform="rotate(-90 31 31)"/>'+
+    '<circle cx="31" cy="31" r="25" fill="none" stroke="#ffe39a" stroke-width="5" stroke-linecap="round" stroke-dasharray="'+(c*p).toFixed(1)+' '+c.toFixed(1)+'" transform="rotate(-90 31 31)"/>'+
     '<text x="31" y="36" text-anchor="middle">'+Math.round(p*100)+'%</text></svg>';
 }
 function goalCard(){
@@ -298,9 +308,9 @@ function spark(){
   const W=340,H=76,T=10,B=22;
   const x0=pts[0].x,x1=pts[pts.length-1].x,ys=pts.map(p=>p.y),lo=Math.min.apply(null,ys),hi=Math.max.apply(null,ys),sp=Math.max(hi-lo,.4);
   const P=pts.map(p=>[(p.x-x0)/(x1-x0)*(W-26),T+(hi-p.y)/sp*(H-T-B)]),e=P[P.length-1];
-  return '<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="直近30日の体重"><path d="'+smooth(P)+'" fill="none" stroke="#2f4a36" stroke-width="2" stroke-linecap="round"/>'+
-    '<line x1="0" x2="'+W+'" y1="'+(H-8)+'" y2="'+(H-8)+'" stroke="#8a9684" stroke-dasharray="2 5"/>'+
-    '<path d="M'+e[0]+' '+e[1]+' q6 -16 18 -18 q-2 12 -18 18Z" fill="#7c9a6a"/><circle cx="'+e[0]+'" cy="'+e[1]+'" r="5" fill="#9b82c9"/></svg>';
+  return '<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="直近30日の体重"><path d="'+smooth(P)+'" fill="none" stroke="#6b4a3a" stroke-width="2" stroke-linecap="round"/>'+
+    '<line x1="0" x2="'+W+'" y1="'+(H-8)+'" y2="'+(H-8)+'" stroke="#a89080" stroke-dasharray="2 5"/>'+
+    '<path d="M'+e[0]+' '+e[1]+' q6 -16 18 -18 q-2 12 -18 18Z" fill="#9ccf8a"/><circle cx="'+e[0]+'" cy="'+e[1]+'" r="5" fill="#f2708f"/></svg>';
 }
 function candsHtml(q){
   q=(q||'').trim();
@@ -345,7 +355,7 @@ function renderToday(){
     '<div class="datebar"><div class="d">'+d.getFullYear()+'.'+(d.getMonth()+1)+'.'+d.getDate()+' '+WDE[d.getDay()]+(isToday?'<i>今日</i>':'')+'</div>'+
     '<div class="ar"><button data-shift="-1" aria-label="前の日">‹</button><button data-shift="1" aria-label="次の日"'+(isToday?' disabled':'')+'>›</button></div></div>'+
     '<div class="ampm">'+tile('am',SUN,'朝','w','f',x,'weight','fat')+tile('pm',MOON,'夜','wp','fp',x,'weightPm','fatPm')+'</div>'+
-    '<div><div class="delta" id="delta">'+deltaText()+'</div><div id="spark">'+spark()+'</div></div>'+
+    '<div class="card" style="padding:4px 18px 8px;overflow:hidden"><div class="delta" id="delta">'+deltaText()+'</div><div id="spark">'+spark()+'</div></div>'+
     '<div class="card kcrow" style="margin-top:6px"><span class="lab">摂取カロリー</span><div class="v" id="kc">'+kcalOf(x)+'<small>kcal</small></div></div>'+
     goalCard()+
     '<div class="card"><h2>食事</h2>'+
@@ -401,8 +411,8 @@ function lineChart(pts,o){
     const v=lo+(hi-lo)*(i+.5)/3, y=Y(v);
     s+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+y+'" y2="'+y+'" stroke="'+o.grid+'"/><text x="'+(W-R+6)+'" y="'+(y+3)+'">'+fmt1(v)+'</text>';
   }
-  if(o.goal!=null)s+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+Y(o.goal)+'" y2="'+Y(o.goal)+'" stroke="#9b82c9" stroke-width="2"/>';
-  if(pace)s+='<line x1="'+X(pace[0])+'" y1="'+Y(pace[1])+'" x2="'+X(pace[2])+'" y2="'+Y(pace[3])+'" stroke="#9b82c9" stroke-width="2" stroke-dasharray="2 6" stroke-linecap="round"/>';
+  if(o.goal!=null)s+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+Y(o.goal)+'" y2="'+Y(o.goal)+'" stroke="#f2708f" stroke-width="2"/>';
+  if(pace)s+='<line x1="'+X(pace[0])+'" y1="'+Y(pace[1])+'" x2="'+X(pace[2])+'" y2="'+Y(pace[3])+'" stroke="#f2708f" stroke-width="2" stroke-dasharray="2 6" stroke-linecap="round"/>';
   s+='<path d="'+path+' L'+last[0].toFixed(1)+' '+base+' L'+P[0][0].toFixed(1)+' '+base+' Z" fill="url(#'+o.id+')"/>';
   if(sec.length){
     const Q=sec.map(p=>[X(p.x),Y(p.y)]);
@@ -423,11 +433,11 @@ function barChart(){
   const top=Math.ceil(mx/500)*500, bw=(W-L-R)/N, bh=H-T-B;
   let s='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="直近14日の摂取カロリー">';
   [top/2,top].forEach(v=>{const y=T+(1-v/top)*bh;
-    s+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+y+'" y2="'+y+'" stroke="rgba(47,74,54,.14)"/><text x="'+(W-R+6)+'" y="'+(y+3)+'">'+v+'</text>';});
+    s+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+y+'" y2="'+y+'" stroke="rgba(107,74,58,.14)"/><text x="'+(W-R+6)+'" y="'+(y+3)+'">'+v+'</text>';});
   vs.forEach((v,i)=>{
     const w=bw-8, h=Math.max(v/top*bh,v?w:0), x=L+i*bw+4;
-    s+='<rect x="'+x.toFixed(1)+'" y="'+T+'" width="'+w.toFixed(1)+'" height="'+bh+'" rx="'+(w/2).toFixed(1)+'" fill="rgba(47,74,54,.07)"/>';
-    if(v)s+='<rect x="'+x.toFixed(1)+'" y="'+(H-B-h).toFixed(1)+'" width="'+w.toFixed(1)+'" height="'+h.toFixed(1)+'" rx="'+(w/2).toFixed(1)+'" fill="'+(i===N-1?'#9b82c9':'#2f4a36')+'"/>';
+    s+='<rect x="'+x.toFixed(1)+'" y="'+T+'" width="'+w.toFixed(1)+'" height="'+bh+'" rx="'+(w/2).toFixed(1)+'" fill="rgba(107,74,58,.07)"/>';
+    if(v)s+='<rect x="'+x.toFixed(1)+'" y="'+(H-B-h).toFixed(1)+'" width="'+w.toFixed(1)+'" height="'+h.toFixed(1)+'" rx="'+(w/2).toFixed(1)+'" fill="'+(i===N-1?'#f2708f':'#6b4a3a')+'"/>';
     if(i%3===1||i===N-1)s+='<text x="'+(x+w/2).toFixed(1)+'" y="'+(H-6)+'" text-anchor="middle">'+md(ds[i])+'</text>';
   });
   return s+'</svg>';
@@ -449,18 +459,18 @@ function renderGraph(){
     '<div class="seg">'+[[30,'30日'],[90,'90日'],[0,'すべて']].map(r=>'<button data-range="'+r[0]+'" class="'+(range===r[0]?'on':'')+'">'+r[1]+'</button>').join('')+'</div>'+
     '<div class="card"><div class="gh"><div><div class="lab">体　重</div><div class="v">'+(lastW?fmt1(lastW.y):'–')+'<small>kg</small></div></div>'+
       (all.length>1?'<span class="pill">開始から '+tot+' kg</span>':'')+'</div>'+
-      lineChart(w,{id:'gw',color:'#2f4a36',fill:'#7c9a6a',fillOp:.35,dot:'#9b82c9',dotRing:'#ffffff',grid:'rgba(47,74,54,.12)',goal:g,pace:pace,second:wPm,secondColor:'#8a9684',label:'体重の推移',empty:'体重を記録すると、ここにグラフが出ます'})+
-      (w.length?'<div class="legend"><span><i style="border-color:#2f4a36"></i>朝（基準）</span>'+(wPm.length?'<span><i style="border-color:#8a9684;border-top-width:1.6px"></i>夜</span>':'')+(g!=null?'<span><i style="border-color:#9b82c9"></i>目標 '+fmt1(g)+' kg</span>':'')+(pace?'<span><i style="border-color:#9b82c9;border-top-style:dotted"></i>期日までの目安</span>':'')+'</div>':'')+'</div>'+
+      lineChart(w,{id:'gw',color:'#6b4a3a',fill:'#9ccf8a',fillOp:.35,dot:'#f2708f',dotRing:'#ffffff',grid:'rgba(107,74,58,.12)',goal:g,pace:pace,second:wPm,secondColor:'#a89080',label:'体重の推移',empty:'体重を記録すると、ここにグラフが出ます'})+
+      (w.length?'<div class="legend"><span><i style="border-color:#6b4a3a"></i>朝（基準）</span>'+(wPm.length?'<span><i style="border-color:#a89080;border-top-width:1.6px"></i>夜</span>':'')+(g!=null?'<span><i style="border-color:#f2708f"></i>目標 '+fmt1(g)+' kg</span>':'')+(pace?'<span><i style="border-color:#f2708f;border-top-style:dotted"></i>期日までの目安</span>':'')+'</div>':'')+'</div>'+
     '<div class="two" style="grid-template-columns:repeat(3,1fr);margin-top:12px"><div class="arch"><span>週平均体重</span><div class="v" style="font-size:24px">'+avg+'<small>kg</small></div></div><div class="arch"><span>体脂肪率</span><div class="v" style="font-size:24px">'+(lastF?fmt1(lastF.y):'–')+'<small>%</small></div></div><div class="arch"><span>週平均摂取</span><div class="v" style="font-size:24px">'+kavg+'<small>kcal</small></div></div></div>'+
-    '<div class="card c-dp"><h2>体脂肪率<em>%</em></h2>'+lineChart(f,{id:'gf',color:'#d9c9f0',fill:'#d9c9f0',fillOp:.3,dot:'#d9c9f0',dotRing:'#2f4a36',grid:'rgba(255,255,255,.14)',second:fPm,secondColor:'rgba(238,240,228,.55)',label:'体脂肪率の推移',emptyColor:'rgba(238,240,228,.75)',empty:'体脂肪率を記録すると、ここにグラフが出ます'})+
-      (fPm.length?'<div class="legend" style="color:rgba(238,240,228,.8)"><span><i style="border-color:#d9c9f0"></i>朝（基準）</span><span><i style="border-color:rgba(238,240,228,.55);border-top-width:1.6px"></i>夜</span></div>':'')+'</div>'+
+    '<div class="card c-dp"><h2>体脂肪率<em>%</em></h2>'+lineChart(f,{id:'gf',color:'#ffe39a',fill:'#ffe39a',fillOp:.3,dot:'#ffe39a',dotRing:'#6b4a3a',grid:'rgba(255,255,255,.14)',second:fPm,secondColor:'rgba(255,248,231,.55)',label:'体脂肪率の推移',emptyColor:'rgba(255,248,231,.75)',empty:'体脂肪率を記録すると、ここにグラフが出ます'})+
+      (fPm.length?'<div class="legend" style="color:rgba(255,248,231,.8)"><span><i style="border-color:#ffe39a"></i>朝（基準）</span><span><i style="border-color:rgba(255,248,231,.55);border-top-width:1.6px"></i>夜</span></div>':'')+'</div>'+
     '<div class="card c-li"><h2>摂取カロリー<em>直近14日・kcal</em></h2>'+barChart()+'</div>';
 }
 
 // ---------- history ----------
 function renderHist(){
   const ds=Object.keys(db.days).sort().reverse();
-  $('#v-hist').innerHTML='<h2 style="margin:4px 2px 4px">履歴<em>'+ds.length+'日分・タップで開く</em></h2>'+
+  $('#v-hist').innerHTML='<h2 class="card" style="margin:0 0 8px;padding:12px 20px;border-radius:99px">履歴<em>'+ds.length+'日分・タップで開く</em></h2>'+
     (ds.length?'<div class="hist"><div class="hh"><span></span><span>朝</span><span>夜</span><span>摂取</span></div>'+ds.map(d=>{
       const x=db.days[d], k=kcalOf(x), dt=parse(d);
       const cell=(w,f)=>'<span class="c">'+(w!=null?'<b>'+fmt1(w)+'<small>kg</small></b>':'<b class="no">–</b>')+(f!=null?'<em>'+fmt1(f)+'%</em>':'')+'</span>';
@@ -468,6 +478,60 @@ function renderHist(){
         cell(x.weight,x.fat)+cell(x.weightPm,x.fatPm)+
         (k?'<span class="c"><b>'+k+'</b><em>kcal</em></span>':'<b class="no">–</b>')+'</button>';
     }).join('')+'</div>':'<div class="card"><p class="empty" style="padding:14px 0">まだ記録がありません</p></div>');
+}
+
+// ---------- background pictures (kept on this device only, in IndexedDB; never uploaded) ----------
+const PAGES=[['today','記録'],['graph','グラフ'],['hist','履歴'],['set','設定']];
+const BG={};let bgTarget=null;
+function idb(){
+  return new Promise((res,rej)=>{
+    const r=indexedDB.open('karadacho',1);
+    r.onupgradeneeded=()=>r.result.createObjectStore('bg');
+    r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error);
+  });
+}
+function idbDo(mode,fn){
+  return idb().then(d=>new Promise((res,rej)=>{
+    const tx=d.transaction('bg',mode), q=fn(tx.objectStore('bg'));
+    tx.oncomplete=()=>{d.close();res(q.result);};
+    tx.onerror=tx.onabort=()=>{d.close();rej(tx.error);};
+  }));
+}
+function setBg(k,blob){
+  if(BG[k])URL.revokeObjectURL(BG[k]);
+  if(blob)BG[k]=URL.createObjectURL(blob);else delete BG[k];
+}
+function applyBg(){
+  const el=$('#bg');
+  el.className='bg-'+tab+(BG[tab]?' has':'');
+  el.style.backgroundImage=BG[tab]?'url("'+BG[tab]+'")':'';
+}
+function loadBgs(){
+  return Promise.all(PAGES.map(p=>idbDo('readonly',st=>st.get(p[0])).then(b=>{if(b)setBg(p[0],b);})))
+    .then(()=>{applyBg();if(tab==='set')renderSet();}).catch(()=>{});
+}
+function shrink(file){
+  return new Promise((res,rej)=>{
+    const u=URL.createObjectURL(file), im=new Image();
+    im.onload=()=>{
+      const k=Math.min(1,1600/Math.max(im.naturalWidth,im.naturalHeight)), c=document.createElement('canvas');
+      c.width=Math.round(im.naturalWidth*k);c.height=Math.round(im.naturalHeight*k);
+      c.getContext('2d').drawImage(im,0,0,c.width,c.height);
+      URL.revokeObjectURL(u);
+      c.toBlob(b=>b?res(b):rej(new Error('blob')),'image/jpeg',.86);
+    };
+    im.onerror=()=>{URL.revokeObjectURL(u);rej(new Error('image'));};
+    im.src=u;
+  });
+}
+function bgCard(){
+  return '<div class="card"><h2>背景画像<em>ページごとに1枚</em></h2>'+PAGES.map(p=>{
+    const u=BG[p[0]];
+    return '<div class="bgrow"><div class="th'+(u?' on':'')+'"'+(u?' style="background-image:url(&quot;'+u+'&quot;)"':'')+'></div><span>'+p[1]+'</span>'+
+      '<button data-bgpick="'+p[0]+'">'+(u?'変える':'選ぶ')+'</button>'+
+      (u?'<button class="x" data-bgdel="'+p[0]+'" aria-label="'+p[1]+'の背景を消す">消す</button>':'')+'</div>';
+  }).join('')+'<input type="file" id="bf" accept="image/*" hidden>'+
+  '<p class="note">選んだ画像はこの端末の中だけに保存され、ネットには送られません。バックアップには含まれないので、機種変更のときは選び直してください。</p></div>';
 }
 
 // ---------- settings ----------
@@ -478,6 +542,7 @@ function renderSet(){
       '<div class="field"><label for="gw">目標体重（kg）</label><input id="gw" inputmode="decimal" placeholder="例 62.0" value="'+(s.goalWeight!=null?s.goalWeight:'')+'"></div>'+
       '<div class="field"><label for="gd">いつまでに</label><input id="gd" type="date" value="'+(s.goalDate||'')+'"></div>'+
       '<button class="btn p" id="gs">目標を保存</button></div>'+
+    bgCard()+
     '<div class="card c-li"><h2>データ</h2>'+
       '<button class="btn" id="csv">CSVで書き出す（Excel用）</button>'+
       '<button class="btn" id="bk">バックアップを保存</button>'+
@@ -506,7 +571,7 @@ function show(t){
   tab=t;
   document.querySelectorAll('.view').forEach(v=>v.classList.toggle('on',v.id==='v-'+t));
   document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.tab===t));
-  R[t]();window.scrollTo(0,0);
+  R[t]();applyBg();window.scrollTo(0,0);
 }
 document.addEventListener('click',e=>{
   const b=e.target.closest('button,a');if(!b)return;
@@ -517,6 +582,13 @@ document.addEventListener('click',e=>{
   if(ds.slot){slot=ds.slot;document.querySelectorAll('.slots button').forEach(x=>x.classList.toggle('on',x.dataset.slot===slot));return;}
   if(ds.food){const f=db.foods[ds.food];if(f)addMeal(ds.food,f.kcal);return;}
   if(ds.del){const x=db.days[cur];if(x){x.meals=x.meals.filter(m=>m.id!==ds.del);tidy(cur);save();refresh();}return;}
+  if(ds.bgpick){bgTarget=ds.bgpick;return $('#bf').click();}
+  if(ds.bgdel){
+    const k=ds.bgdel;
+    if(!confirm('このページの背景画像を消します。よろしいですか？'))return;
+    idbDo('readwrite',st=>st.delete(k)).then(()=>{setBg(k,null);applyBg();renderSet();toast('背景を消しました');}).catch(()=>toast('消せませんでした'));
+    return;
+  }
   if(ds.range!=null){range=+ds.range;return renderGraph();}
   if(ds.open){cur=ds.open;return show('today');}
   if(b.id==='ma'){addMeal($('#mn').value,parseFloat($('#mk').value));return;}
@@ -534,6 +606,11 @@ document.addEventListener('click',e=>{
 document.addEventListener('change',e=>{
   const t=e.target;
   if(FIELDS[t.id]){const F=FIELDS[t.id];numIn(t,F[0],F[1],F[2],F[3]);refresh();}
+  if(t.id==='bf'&&t.files[0]&&bgTarget){
+    const k=bgTarget, file=t.files[0];t.value='';
+    shrink(file).then(b=>idbDo('readwrite',st=>st.put(b,k)).then(()=>{setBg(k,b);applyBg();renderSet();toast('背景を設定しました');}))
+      .catch(()=>toast('この画像は設定できませんでした'));
+  }
   if(t.id==='rf'&&t.files[0]){
     const fr=new FileReader();
     fr.onload=()=>{
@@ -557,6 +634,7 @@ document.addEventListener('keydown',e=>{
   else if(FIELDS[e.target.id])e.target.blur();
 });
 
+loadBgs();
 show('today');
 })();
 </script>
